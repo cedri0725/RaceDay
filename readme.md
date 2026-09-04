@@ -10,10 +10,9 @@ RaceDay is a full-stack web-based event management system designed for the South
 ## CI/CD Status
 ![Build Status](![alt text](/RaceDay/workflow.png))
 ![Build Status](![alt text](/RaceDay/docs/Database_Results.png))
-![Build Status](![alt text](/RaceDay/docs/ERD_PROG.jpg))
 
 ## YouTube Video
-[Watch the walkthrough](your-youtube-link-here)
+[Watch the walkthrough](https://youtu.be/QVxj9K1EX20)
 
 ## How to Run the SQL Script
 1. Open SQL Server Management Studio
