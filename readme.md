@@ -8,7 +8,9 @@ RaceDay is a full-stack web-based event management system designed for the South
 2. **Participant** - Browses events, enrols in events, tracks personal results
 
 ## CI/CD Status
-![Build Status](link-to-your-green-build-screenshot)
+![Build Status](![alt text](/RaceDay/workflow.png))
+![Build Status](![alt text](/RaceDay/docs/Database_Results.png))
+![Build Status](![alt text](/RaceDay/docs/ERD_PROG.jpg))
 
 ## YouTube Video
 [Watch the walkthrough](your-youtube-link-here)
