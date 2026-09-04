@@ -238,6 +238,3 @@ INNER JOIN Users u ON en.ParticipantID = u.UserID
 ORDER BY r.Position;
 GO
 
--- ============================================
--- END OF SQL SCRIPT
--- ============================================
