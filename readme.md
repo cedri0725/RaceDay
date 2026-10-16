@@ -16,28 +16,41 @@ This repository contains the complete project across all three parts of the PROG
 ## Project Structure
 
 RaceDay/
+│
 ├── .github/
-│ ├── workflows/
-│ │     └── api-build-test.yml
-│ ├── validate-docs.yml # Part 1 CI/CD workflow
-│ └── api-build-test.yml # Part 2 CI/CD workflow
-├── docs/
-│ ├── ERD_PROG.jpg # Entity Relationship Diagram
-│ ├── endpoint-plan.md # API endpoint specifications
-│ ├── RaceDay_Database.sql # SQL database script
-│ └── Database_Results.png # SQL execution screenshot
-├── RaceDay.API/
-│ ├── Controllers/
-│ ├── Data/
-│ ├── DTOs/
-│ ├── Models/
-│ ├── Services/
-│ ├── appsettings.json
-│ └── Program.cs
-├── RaceDay.API.Tests/
-├── README.md
-└── workflow.png
-
+│   └── workflows/
+│       ├── validate-docs.yml              # Part 1 - Document validation workflow
+│       └── api-build-test.yml             # Part 2 - API build and test workflow
+│
+├── docs/                                   # PART 1 - PLANNING AND DATABASE
+│   ├── ERD_PROG.jpg
+│   ├── endpoint-plan.md
+│   ├── RaceDay_Database.sql
+│   └── Database_Results.png
+│
+├── RaceDay.API/                            # PART 2 - RESTFUL API PROJECT
+│   ├── Controllers/
+│   ├── Data/
+│   ├── DTOs/
+│   ├── Middleware/
+│   ├── Migrations/
+│   ├── Models/
+│   ├── Properties/
+│   ├── Services/
+│   ├── appsettings.json
+│   ├── appsettings.Development.json
+│   ├── Program.cs
+│   ├── RaceDay.API.csproj
+│   └── RaceDay.API.http
+│
+├── RaceDay.API.Tests/                      # PART 2 - UNIT TESTS
+│   └── RaceDay.API.Tests.csproj
+│
+├── .gitignore
+├── readme.md
+├── workflow.png                            # Part 1 green build screenshot
+├── ci-cd-success.png                       # Part 2 green build screenshot
+└── Screenshot_1.png ... Screenshot_5.png   # Part 1 screenshots
 
 ## CI/CD Status
 
@@ -48,7 +61,7 @@ RaceDay/
 [Watch the walkthrough](https://youtu.be/hBsQXPo8uqw)
 
 ### Part 2 - API Build and Test
-![API Build Status](RaceDay.API/.github/workflows/ci-cd-success.png)
+![API Build Status](ci-cd-success.png)
 
 ## YouTube Video
 [Watch the walkthrough](https://youtu.be/hBsQXPo8uqw)
