@@ -42,10 +42,6 @@ RaceDay/
 ## CI/CD Status
 
 ### Part 1 - Document Validation
-![Build Status](![alt text](/RaceDay/workflow.png))
-![Build Status](![alt text](/RaceDay/docs/Database_Results.png))
-
-### Part 1 - Document Validation
 ![Build Status](./workflow.png)
 
 ## YouTube Video
