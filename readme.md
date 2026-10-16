@@ -1,4 +1,4 @@
-# RaceDay - Event Management System
+﻿# RaceDay - Event Management System
 
 ## Overview
 RaceDay is a full-stack web-based event management system designed for the South African road running, walking, and cycling community.
@@ -14,9 +14,11 @@ This repository contains the complete project across all three parts of the PROG
 2. **Participant** - Browses events, enrols in events, tracks personal results
 
 ## Project Structure
+
 RaceDay/
 ├── .github/
-│ └── workflows/
+│ ├── workflows/
+│ │     └── api-build-test.yml
 │ ├── validate-docs.yml # Part 1 CI/CD workflow
 │ └── api-build-test.yml # Part 2 CI/CD workflow
 ├── docs/
@@ -36,18 +38,21 @@ RaceDay/
 ├── README.md
 └── workflow.png
 
+
 ## CI/CD Status
+
+### Part 1 - Document Validation
 ![Build Status](![alt text](/RaceDay/workflow.png))
 ![Build Status](![alt text](/RaceDay/docs/Database_Results.png))
-
-## YouTube Video
-[Watch the walkthrough](https://youtu.be/hBsQXPo8uqw)
 
 ### Part 1 - Document Validation
 ![Build Status](./workflow.png)
 
+## YouTube Video
+[Watch the walkthrough](https://youtu.be/hBsQXPo8uqw)
+
 ### Part 2 - API Build and Test
-![API Build Status](ci-cd-success.png)
+![API Build Status](.github/workflows/ci-cd-success.png)
 
 ## YouTube Video
 [Watch the walkthrough](https://youtu.be/hBsQXPo8uqw)
@@ -85,19 +90,3 @@ RaceDay/
 - Visual Studio 2022 (Community edition) or Visual Studio Code with C# Dev Kit
 - SQL Server Management Studio (SSMS)
 
-#### Step 1: Configure the Database Connection
-
-Open `RaceDay.API/appsettings.json` and update the connection string:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=RaceDayDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
-  }
-}
-
-## How to Run the SQL Script
-1. Open SQL Server Management Studio
-2. Connect to your SQL Server instance
-3. Open `docs/RaceDay_Database.sql`
-4. Click Execute (F5)
