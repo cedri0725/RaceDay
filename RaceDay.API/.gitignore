@@ -1,0 +1,32 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# NuGet
+*.nupkg
+
+# Database files
+*.mdf
+*.ldf
+*.ndf
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
