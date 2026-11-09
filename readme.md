@@ -17,10 +17,6 @@ This repository contains the complete project across all three parts of the PROG
 
 RaceDay/
 │
-├── .github/
-│   └── workflows/
-│       ├── validate-docs.yml              # Part 1 - Document validation workflow
-│       └── api-build-test.yml             # Part 2 - API build and test workflow
 │
 ├── docs/                                   # PART 1 - PLANNING AND DATABASE
 │   ├── ERD_PROG.jpg
@@ -29,6 +25,13 @@ RaceDay/
 │   └── Database_Results.png
 │
 ├── RaceDay.API/                            # PART 2 - RESTFUL API PROJECT
+│   ├── .github/
+│   │     ├── workflows/
+│   │     │    ├── api-build-test.yml             # Part 2 - API build and test workflow
+│   │     │    ├── validate-docs.yml              # Part 1 - Document validation workflow
+│   │     │    └── ci-cd-success.png              # Part 2 - green build screenshot         
+│   │     └── copilot-instructions
+│   │  
 │   ├── Controllers/
 │   ├── Data/
 │   ├── DTOs/
@@ -49,7 +52,6 @@ RaceDay/
 ├── .gitignore
 ├── readme.md
 ├── workflow.png                            # Part 1 green build screenshot
-├── ci-cd-success.png                       # Part 2 green build screenshot
 └── Screenshot_1.png ... Screenshot_5.png   # Part 1 screenshots
 
 ## CI/CD Status
@@ -61,7 +63,7 @@ RaceDay/
 [Watch the walkthrough](https://youtu.be/hBsQXPo8uqw)
 
 ### Part 2 - API Build and Test
-![API Build Status](ci-cd-success.png)
+![API Build Status](./RaceDay.API/.github/workflows/ci-cd-success.png)
 
 ## YouTube Video
 [Watch the walkthrough](https://youtu.be/NLadws06X2Q)
