@@ -29,8 +29,8 @@ RaceDay/
 │   │     ├── workflows/
 │   │     │    ├── api-build-test.yml             # Part 2 - API build and test workflow
 │   │     │    ├── validate-docs.yml              # Part 1 - Document validation workflow
-│   │     │    ├── ci-cd-success.png              # Part 2 - green build screenshot
-│   │     │    └── ci-cd-success2.png             # Part 2 - green build screenshot
+│   │     │    ├── ci-cd-success              # Part 2 - green build screenshot
+│   │     │    └── ci-cd-success2             # Part 2 - green build screenshot
 │   │     └── copilot-instructions
 │   │  
 │   ├── Controllers/
