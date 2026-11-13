@@ -29,7 +29,8 @@ RaceDay/
 │   │     ├── workflows/
 │   │     │    ├── api-build-test.yml             # Part 2 - API build and test workflow
 │   │     │    ├── validate-docs.yml              # Part 1 - Document validation workflow
-│   │     │    └── ci-cd-success.png              # Part 2 - green build screenshot         
+│   │     │    ├── ci-cd-success.png              # Part 2 - green build screenshot
+│   │     │    └── ci-cd-success2.png             # Part 2 - green build screenshot
 │   │     └── copilot-instructions
 │   │  
 │   ├── Controllers/
@@ -64,6 +65,7 @@ RaceDay/
 
 ### Part 2 - API Build and Test
 ![API Build Status](./RaceDay.API/.github/workflows/ci-cd-success.png)
+![API Build Status](./RaceDay.API/.github/workflows/ci-cd-success2.png)
 
 ## YouTube Video
 [Watch the walkthrough](https://youtu.be/NLadws06X2Q)
