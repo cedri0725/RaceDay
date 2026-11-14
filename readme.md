@@ -104,10 +104,11 @@ Part 1 & 2 Walkthrough: Watch the walkthrough
 Part 3 (MVC & Azure) Walkthrough: [Paste your Part 3 video link here]
 
 CI/CD Build Status
-Part 1 - Document Validation
-./workflow.png
+### Part 1 - API Build and Test
+![API Build Status] (./workflow.png)
 
-Part 2 & 3 - API Build & Test
-./RaceDay.API/.github/workflows/ci-cd-success.jpg
-./RaceDay.API/.github/workflows/ci-cd-success2.jpg
+### Part 2 - API Build and Test
+![API Build Status] (./RaceDay.API/.github/workflows/ci-cd-success.jpg)
+### Part 3 - API Build and Test
+![API Build Status] (./RaceDay.API/.github/workflows/ci-cd-success2.jpg)
 
