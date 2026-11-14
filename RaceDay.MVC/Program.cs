@@ -1,62 +1,36 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using RaceDay.MVC.Services;
-
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Add MVC
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// 2. Configure Session & Cookie Authentication
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login";
-        options.LogoutPath = "/Account/Logout";
-        options.AccessDeniedPath = "/Account/AccessDenied";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-    });
-
-builder.Services.AddSession(options =>
+// 1. Configure HttpClient to talk to the API using the correct port
+builder.Services.AddHttpClient("RaceDayAPI", client =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(60);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]!);
 });
 
-// 3. Configure HttpClient to talk to your Part 2 API
-builder.Services.AddHttpClient<IApiService, ApiService>(client =>
-{
-    client.BaseAddress = new Uri("https://localhost:7295/");
-})
-.ConfigurePrimaryHttpMessageHandler(() =>
-{
-    var handler = new HttpClientHandler();
-    // Bypass SSL certificate check for localhost to fix SocketException
-    handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
-    return handler;
-});
-
-builder.Services.AddHttpContextAccessor();
+// 2. Enable Session (to store the JWT token)
+builder.Services.AddSession();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // <--- Commented out to prevent HTTPS crashes
 app.UseStaticFiles();
 app.UseRouting();
 
-// 4. Enable Auth and Session middleware
-app.UseAuthentication();
+app.UseSession(); // <--- Required for Login/Token tracking
+
 app.UseAuthorization();
-app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}"); // Set Login as default page
 
 app.Run();

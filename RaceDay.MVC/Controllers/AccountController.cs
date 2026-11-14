@@ -1,61 +1,70 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RaceDay.MVC.Models;
-using RaceDay.MVC.Services;
-using System.Security.Claims;
+using RaceDay.MVC.ViewModels;
+using System.Net.Http.Json;
 
 namespace RaceDay.MVC.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IApiService _apiService;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public AccountController(IApiService apiService)
+        public AccountController(IHttpClientFactory httpClientFactory)
         {
-            _apiService = apiService;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => View();
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
 
-            var token = await _apiService.LoginAsync(model.Email, model.Password);
+            var client = _httpClientFactory.CreateClient("RaceDayAPI");
+            var response = await client.PostAsJsonAsync("api/auth/login", model);
 
-            if (token != null)
+            if (response.IsSuccessStatusCode)
             {
-                // Save token in session for future API calls
-                HttpContext.Session.SetString("JwtToken", token);
-
-                // Create claims for the MVC Cookie Auth
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, model.Email),
-                    // You can parse the JWT to get the Role if needed
-                };
-
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                return RedirectToAction("Index", "Home");
+                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+                HttpContext.Session.SetString("JWToken", result?.Token ?? "");
+                HttpContext.Session.SetString("UserRole", result?.Role ?? "");
+                return RedirectToAction("Index", "Events");
             }
 
-            ModelState.AddModelError("", "Invalid login attempt.");
+            ModelState.AddModelError("", "Invalid login attempt");
             return View(model);
         }
 
-        public async Task<IActionResult> Logout()
+        [HttpGet]
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var client = _httpClientFactory.CreateClient("RaceDayAPI");
+            var response = await client.PostAsJsonAsync("api/auth/register", model);
+
+            if (response.IsSuccessStatusCode)
+                return RedirectToAction("Login");
+
+            ModelState.AddModelError("", "Registration failed. Email might exist.");
+            return View(model);
+        }
+
+        public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
+    }
+
+    public class AuthResponse
+    {
+        public string Token { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
     }
 }

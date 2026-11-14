@@ -1,26 +1,38 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RaceDay.MVC.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using RaceDay.MVC.ViewModels;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 
 namespace RaceDay.MVC.Controllers
 {
-    // [Authorize] means only logged-in users can access this controller
-    [Authorize]
     public class DashboardController : Controller
     {
-        private readonly IApiService _apiService;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public DashboardController(IApiService apiService)
+        public DashboardController(IHttpClientFactory httpClientFactory)
         {
-            _apiService = apiService;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<IActionResult> Index()
         {
-            // In a real app, you would filter this to only show the logged-in Organiser's events.
-            // For now, we will fetch all events and display them.
-            var events = await _apiService.GetEventsAsync();
-            return View(events);
+            var client = _httpClientFactory.CreateClient("RaceDayAPI");
+            var token = HttpContext.Session.GetString("JWToken");
+
+            if (string.IsNullOrEmpty(token))
+                return RedirectToAction("Login", "Account");
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            // We can fetch events here to show on the dashboard
+            var response = await client.GetAsync("api/events");
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadFromJsonAsync<EventListResponse>();
+                return View(json?.Events ?? new List<EventViewModel>());
+            }
+
+            return View(new List<EventViewModel>());
         }
     }
 }

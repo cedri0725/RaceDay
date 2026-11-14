@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RaceDay.MVC.ViewModels.EventViewModel>
+@{
+    ViewData["Title"] = "Upcoming Events";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h2>Upcoming Events</h2>
+    <a asp-action="Logout" asp-controller="Account" class="btn btn-outline-danger">Logout</a>
+</div>
+
+<table class="table table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Capacity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="4" class="text-center">No events found.</td></tr>
+        }
+        @foreach (var ev in Model)
+        {
+            <tr>
+                <td>@ev.Event_Name</td>
+                <td>@ev.Event_Date.ToShortDateString()</td>
+                <td>@ev.Location</td>
+                <td>@ev.Max_Capacity</td>
+            </tr>
+        }
+    </tbody>
+</table>

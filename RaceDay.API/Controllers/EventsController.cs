@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RaceDay.API.Data;
 using RaceDay.API.DTOs.Events;
 using RaceDay.API.Models;
+using RaceDay.API.Services;
 using System.Security.Claims;
 
 namespace RaceDay.API.Controllers
@@ -13,10 +14,12 @@ namespace RaceDay.API.Controllers
     public class EventsController : ControllerBase
     {
         private readonly RaceDayDbContext _context;
+        private readonly IBlobService _blobService; // Added BlobService
 
-        public EventsController(RaceDayDbContext context)
+        public EventsController(RaceDayDbContext context, IBlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
 
         private int GetCurrentUserId() =>
@@ -170,6 +173,22 @@ namespace RaceDay.API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Event deactivated successfully" });
+        }
+
+        /// <summary>
+        /// Upload an image for an event (Organiser only)
+        /// </summary>
+        [HttpPost("upload-image")]
+        [Authorize(Roles = "Organiser")]
+        public async Task<IActionResult> UploadEventImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            using var stream = file.OpenReadStream();
+            var imageUrl = await _blobService.UploadFileAsync(stream, Guid.NewGuid().ToString() + Path.GetExtension(file.FileName));
+
+            return Ok(new { imageUrl });
         }
     }
 }

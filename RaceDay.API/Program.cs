@@ -7,6 +7,7 @@ using RaceDay.API.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IBlobService, BlobService>();
 
 // 1. Database Connection
 builder.Services.AddDbContext<RaceDayDbContext>(options =>
