@@ -8,21 +8,15 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ==========================================
 // 1. Database Connection
-// ==========================================
 builder.Services.AddDbContext<RaceDayDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ==========================================
-// 2. Register Custom Services
-// ==========================================
+// 2. Services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-// ==========================================
-// 3. JWT Authentication Configuration
-// ==========================================
+// 3. JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -42,20 +36,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
-// ==========================================
-// 4. Swagger Configuration with JWT Support
-// ==========================================
+// 4. Swagger Configuration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "RaceDay API",
-        Version = "v1",
-        Description = "RESTful API for the RaceDay event management system"
-    });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "RaceDay API", Version = "v1" });
 
-    // Add JWT authentication to Swagger UI
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Enter 'Bearer {your JWT token}'",
@@ -70,20 +56,14 @@ builder.Services.AddSwaggerGen(c =>
         {
             new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
             },
             new string[] { }
         }
     });
 });
 
-// ==========================================
-// 5. CORS Policy (for Part 3 MVC frontend)
-// ==========================================
+// 5. CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -92,25 +72,22 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ==========================================
-// 6. Auto-Apply Migrations on Startup
-// ==========================================
+// Auto-migrate database
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<RaceDayDbContext>();
     db.Database.Migrate();
 }
 
-// ==========================================
-// 7. Middleware Pipeline
-// ==========================================
-if (app.Environment.IsDevelopment())
+// ---> FORCE SWAGGER TO ALWAYS SHOW AT THE ROOT URL <---
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RaceDay API v1");
+    c.RoutePrefix = string.Empty; // Loads Swagger at http://localhost:5000/
+});
 
-app.UseHttpsRedirection();
+// REMOVED: app.UseHttpsRedirection(); (This was causing the blank page)
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();

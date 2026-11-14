@@ -1,0 +1,54 @@
+﻿@model IEnumerable<RaceDay.MVC.Models.EventViewModel>
+
+@{
+    ViewData["Title"] = "Upcoming Events";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold text-success">RaceDay Events</h1>
+            <p class="lead">Find your next run, walk, or cycle in South Africa.</p>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            No upcoming events found. Check back later!
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var ev in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="card-title mb-0">@ev.Event_Name</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">@ev.Location</h6>
+                            <p class="card-text">@ev.Description</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">
+                                    <strong>Date:</strong> @ev.Event_Date.ToString("dd MMM yyyy")
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Capacity:</strong> @ev.Max_Capacity people
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Organiser:</strong> @ev.Organiser_Name
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-transparent border-success text-center">
+                            <a href="#" class="btn btn-outline-success w-100">View Details & Enrol</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
