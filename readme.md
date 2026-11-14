@@ -60,55 +60,46 @@ Visual Studio 2022 (Community edition) or Visual Studio Code
 
 Step 1: Database Setup (Part 1)
 Open SQL Server Management Studio (SSMS).
-
 Connect to your SQL Server instance.
-
 Open docs/RaceDay_Database.sql.
-
 Click Execute (F5) to create the database and seed sample data.
 
 Step 2: Run the API (Part 2)
 Open the RaceDay.API project in Visual Studio.
-
 Set RaceDay.API as the Startup Project.
-
 Press F5. The API will launch on http://localhost:5000 and Swagger UI will open in your browser.
-
 Use the Swagger UI to test endpoints, register users, and generate JWT tokens.
 
 Step 3: Run the MVC Frontend (Part 3)
 Right-click the Solution in Solution Explorer and select Properties.
-
 Set Multiple startup projects and ensure both RaceDay.API and RaceDay.MVC are set to Start.
-
 Press F5. Both projects will launch.
-
 Navigate to the MVC frontend (e.g., http://localhost:5129) to register, log in, and view events.
 
 Technology Stack
-
 Technology	Purpose
-ASP.NET Core 8.0 Web API	RESTful API framework (Part 2)
-ASP.NET Core 8.0 MVC	Web Frontend (Part 3)
-Entity Framework Core 8.0	ORM with Code-First approach
-SQL Server	Relational Database
-JWT (JSON Web Tokens)	Secure Authentication
-BCrypt.Net	Password Hashing
-Azure Blob Storage (Azurite)	Image Upload Storage (Part 3)
-Swagger (Swashbuckle)	API Documentation and Testing
-xUnit & Moq	Unit Testing
-GitHub Actions	CI/CD Automated Pipelines
-Video Walkthroughs
-Part 1 & 2 Walkthrough: Watch the walkthrough
+ASP.NET Core 8.0 Web API -	RESTful API framework (Part 2)
+ASP.NET Core 8.0 MVC -	Web Frontend (Part 3)
+Entity Framework Core 8.0 -	ORM with Code-First approach
+SQL Server - Relational Database
+JWT (JSON Web Tokens) - Secure Authentication
+BCrypt.Net - Password Hashing
+Azure Blob Storage (Azurite) - Image Upload Storage (Part 3)
+Swagger (Swashbuckle) - API Documentation and Testing
+xUnit & Moq - Unit Testing
+GitHub Actions - CI/CD Automated Pipelines
 
-Part 3 (MVC & Azure) Walkthrough: [Paste your Part 3 video link here]
+Video Walkthroughs
+Part 1 & 2 Walkthrough: []
+
+Part 3 (MVC & Azure) Walkthrough: []
 
 CI/CD Build Status
-### Part 1 - API Build and Test
-![API Build Status] (./workflow.png)
+Part 1 - Document Validation
+(./workflows.png)
 
-### Part 2 - API Build and Test
-![API Build Status] (./RaceDay.API/.github/workflows/ci-cd-success.jpg)
-### Part 3 - API Build and Test
-![API Build Status] (./RaceDay.API/.github/workflows/ci-cd-success2.jpg)
+Part 2 - API Build and Test
+(./RaceDay.API/.github/workflows/ci-cd-success.png)
 
+Part 3 - API Build and Test
+(./RaceDay.API/.github/workflows/ci-cd-success2.png)
