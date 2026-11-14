@@ -90,17 +90,17 @@ xUnit & Moq - Unit Testing
 GitHub Actions - CI/CD Automated Pipelines
 
 Video Walkthroughs
-Part 1 & 2 Walkthrough: []
+Part 1 & 2 Walkthrough: [https://youtu.be/NLadws06X2Q]
 
-Part 3 (MVC & Azure) Walkthrough: []
+Part 3 (MVC & Azure) Walkthrough: [https://youtu.be/W9fQXlWhSvE]
 
 ## CI/CD Build Status
 
 ### Part 1 - Document Validation
-![Part 1 Build Status](./workflows)
+![Part 1 Build Status](./workflows.png.png)
 
 ### Part 2 - API Build and Test
-![Part 2 Build Status](./RaceDay.API/.github/workflows/ci-cd-success)
+![Part 2 Build Status](./RaceDay.API/.github/workflows/ci-cd-success.png.png)
 
 ### Part 3 - API Build and Test
-![Part 3 Build Status](./RaceDay.API/.github/workflows/ci-cd-success2)
+![Part 3 Build Status](./RaceDay.API/.github/workflows/ci-cd-success2.png.png)
